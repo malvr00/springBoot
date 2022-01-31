@@ -1,6 +1,7 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import javax.sql.DataSource;
@@ -40,7 +41,7 @@ public class JdbcMemberRepository  implements MemberRepository{
                 throw new SQLException("id 조회 실패");
             }
             return member;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
             close(conn, pstmt, rs);
@@ -70,7 +71,7 @@ public class JdbcMemberRepository  implements MemberRepository{
             }else {
                 return Optional.empty();
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
             close(conn, pstmt, rs);
@@ -100,7 +101,7 @@ public class JdbcMemberRepository  implements MemberRepository{
             }else {
                 return Optional.empty();
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
             close(conn, pstmt, rs);
@@ -131,7 +132,7 @@ public class JdbcMemberRepository  implements MemberRepository{
             }
 
             return members;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
             close(conn, pstmt, rs);
@@ -159,7 +160,7 @@ public class JdbcMemberRepository  implements MemberRepository{
         }
         try{
             if(conn != null){
-                conn.close();
+                close(conn);
             }
         }catch(SQLException e){
             e.printStackTrace();
