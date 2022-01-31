@@ -8,8 +8,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class MemberService {
+
     // Service 단은 좀 더 비즈니스적 네이밍을 택함.
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository){
+        // Di
+        this.memberRepository = memberRepository;
+    }
 
     /**
      *  회원가입
@@ -25,13 +31,13 @@ public class MemberService {
         // ifPresent Optional 메소드
         // 값이 있으면 실행
         memberRepository.findByName(member.getName())
-            .ifPresent(m -> {
-                try {
-                    throw new IllegalAccessException("이미 존재하는 회원입니다. ");
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            });
+                .ifPresent(m -> {
+                    try {
+                        throw new IllegalAccessException("이미 존재하는 회원입니다. ");
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     /**
