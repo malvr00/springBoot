@@ -30,7 +30,8 @@ public class SpringConfig {
     public MemberRepository memberRepository(){
         // Repository 어노테이션을 활용하지 않고 Bean에 등록해서 사용하면
         // 바꿔치기 용의함.
-        return new JdbcMemberRepository(dataSource);
-//        return new MemoryMemberRepository();
+        return new JdbcMemberRepository(dataSource);        // JDBC Template
+//        return new JdbcMemberRepository(dataSource);      // 순수 JDBC
+//        return new MemoryMemberRepository();              // Memory
     }
 }
